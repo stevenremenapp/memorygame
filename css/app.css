@@ -1,4 +1,4 @@
-html {
+/*html {
   box-sizing: border-box;
 }
 
@@ -35,7 +35,7 @@ h1 {
 /*
 *Styles for the deck of cards
 */
-
+/*
 .deck {
   width: 660px;
   min-height: 680px;
@@ -65,8 +65,23 @@ h1 {
 }
 
 .deck .card img {
-  width: 100%;
-  height: 100%;
+  width: 0;
+  height: 0;
+}
+
+.deck .card.open img {
+  width: 90%;
+  height: 90%;
+}
+
+.deck .card.show img {
+  width: 90%;
+  height: 90%;
+}
+
+.deck .card.match img {
+  width: 90%;
+  height: 90%;
 }
 
 .deck .card.open {
@@ -87,7 +102,8 @@ h1 {
 * Styles for the Score Panel
 */
 
-.score-panel {
+
+/*.score-panel {
   text-align: left;
   width: 345px;
   margin-bottom: 10px;
@@ -108,4 +124,4 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
-}
+}*/

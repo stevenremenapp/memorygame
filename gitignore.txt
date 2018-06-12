@@ -1,1 +1,1 @@
-C:\Users\remen\Documents\codingClasses\Udacity\Nanodegree\Projects\2-Memory-Game\img\animalIcons\__MACOSX
+img\animalIcons\__MACOSX

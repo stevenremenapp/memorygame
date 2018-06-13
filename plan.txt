@@ -1,0 +1,43 @@
+Need to:
+
+- Display 16 cards (2 sets of 8 pair)
+      - Create list/divs and append them to the DOM
+- Randomize/shuffle the 16 cards for each game (prior to appending to DOM?)
+- Allow user to select cards to flip
+      - Only allow two flipped cards at any one time
+      - Once the second card is flipped:
+            - Determine if the two flipped cards match (create function to check for matching cards):
+                  - If so, leave them flipped
+                  - If not, turn them back over
+
+- Apply styles for:
+      - flipped cards
+      - matched cards
+
+- Create timer that displays during gameplay
+- Create counter that display number of moves during gameplay
+      - 2 clicks on a card equals one total move
+- Create star rating area that dynamically updates during gameplay
+      - At x number of moves remove one star
+      - At y number of moves remove another star
+      - At z number of moves remove final star
+
+- Determine when the user has finished the game:
+      - Check to see if all cards are matched
+            - If all cards are matched, stop game
+                  - If game is stopped, provide time elapsed and score with option to start new game
+______________________
+IN GAMEPLAY ORDER:
+
+- Allow user to start the game
+- Create card deck and shuffle/display it
+- Start count of moves and start the timer
+- Start function of star rating
+- Provide function for user to click through cards
+- Provide function to tell if flipped cards are matched
+  - If so, style them differently and push them to the matched cards array
+  - If not, flip them back over
+- Allow user to move through to completing the game
+  - Continually check for a finished game by checking if the matched cards array has 16 cards
+- If the game has been completed:
+  - Display to user the time elapsed, the total moves used, and a final star rating, with an option to restart the game or close the display box

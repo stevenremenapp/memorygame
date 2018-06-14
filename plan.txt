@@ -25,11 +25,12 @@ Need to:
 - Determine when the user has finished the game:
       - Check to see if all cards are matched
             - If all cards are matched, stop game
-                  - If game is stopped, provide time elapsed and score with option to start new game
+                  - If game is stopped, provide time elapsed and score with option to start new game. This must be done with a modal.
+- Include a restart button
 ______________________
 IN GAMEPLAY ORDER:
 
-- Allow user to start the game
+- Allow user to start the game // Also include a restart button
 - Create card deck and shuffle/display it
 - Start count of moves and start the timer
 - Start function of star rating
@@ -40,4 +41,5 @@ IN GAMEPLAY ORDER:
 - Allow user to move through to completing the game
   - Continually check for a finished game by checking if the matched cards array has 16 cards
 - If the game has been completed:
-  - Display to user the time elapsed, the total moves used, and a final star rating, with an option to restart the game or close the display box
+  - Display modal to user the time elapsed, the total moves used, and a final star rating, with an option to restart the game or close the display box
+  - Restart the game with all counts reset to 0

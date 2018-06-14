@@ -10,18 +10,18 @@
  */
 
  // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
- let currentIndex = array.length, temporaryValue, randomIndex;
-
- while (currentIndex !== 0) {
-   randomIndex = Math.floor(Math.random() * currentIndex);
-   currentIndex--;
-   temporaryValue = array[currentIndex];
-   array[currentIndex] = array[randomIndex];
-   array[randomIndex] = temporaryValue;
- }
- return array;
-}
+// function shuffle(array) {
+//  let currentIndex = array.length, temporaryValue, randomIndex;
+//
+//  while (currentIndex !== 0) {
+//    randomIndex = Math.floor(Math.random() * currentIndex);
+//    currentIndex--;
+//    temporaryValue = array[currentIndex];
+//    array[currentIndex] = array[randomIndex];
+//    array[randomIndex] = temporaryValue;
+//  }
+//  return array;
+// }
 
  /*
  * set up the event listener for a card. If a card is clicked:
@@ -45,3 +45,61 @@ function shuffle(array) {
 //     clickedCard.classList.toggle('show');
 //   }
 // });
+
+const cards = [{
+  'name': 'octopus',
+  'src': 'img/animalIcons/animalsSVG/Octopus.svg'
+},
+{
+  'name': 'lion',
+  'src': 'img/animalIcons/animalsSVG/Lion.svg'
+},
+{
+  'name': 'kangaroo',
+  'src': 'img/animalIcons/animalsSVG/Kangaroo.svg'
+},
+{
+  'name': 'leopard',
+  'src': 'img/animalIcons/animalsSVG/Leopard.svg'
+},
+{
+  'name': 'unicorn',
+  'src': 'img/animalIcons/animalsSVG/Unicorn.svg'
+},
+{
+  'name': 'turtle',
+  'src': 'img/animalIcons/animalsSVG/Turtle.svg'
+},
+{
+  'name': 'gorilla',
+  'src': 'img/animalIcons/animalsSVG/Gorilla.svg'
+},
+{
+  'name': 'elephant',
+  'src': 'img/animalIcons/animalsSVG/Elephant.svg'
+}
+];
+
+let gameGrid = cards.concat(cards);
+gameGrid.sort(function() {
+  return 0.5 - Math.random()
+});
+
+// Create cards grid and append to the DOM
+const game = document.getElementById('game');
+const grid = document.createElement('section');
+grid.setAttribute('class', 'grid');
+game.appendChild(grid);
+
+// Display the cards on the screen
+// Steve Griffith: https://www.youtube.com/watch?v=AqgVLYpBWG8
+for (let i = 0; i < gameGrid.length; i++) {
+  console.log(gameGrid[i]);
+  console.log(gameGrid[i].name);
+  console.log(gameGrid[i].src);
+  const card = document.createElement('div');
+  card.classList.add('card');
+  card.dataset.name = gameGrid[i].name;
+  card.style.backgroundImage = `url(${gameGrid[i].src})`;
+  grid.appendChild(card);
+}

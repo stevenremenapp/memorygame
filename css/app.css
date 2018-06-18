@@ -159,3 +159,11 @@ body {
   height: 150px;
   width: 150px;
 }
+
+.selected {
+  border: 2px solid blue;
+}
+
+.matched {
+  border: 2px solid red;
+}

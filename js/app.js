@@ -80,6 +80,7 @@ const cards = [{
 }
 ];
 
+// Shuffle the cards
 let gameGrid = cards.concat(cards);
 gameGrid.sort(function() {
   return 0.5 - Math.random()
@@ -103,3 +104,23 @@ for (let i = 0; i < gameGrid.length; i++) {
   card.style.backgroundImage = `url(${gameGrid[i].src})`;
   grid.appendChild(card);
 }
+
+// Restriction to selecting only two cards only works if selectedCount is outside of the event listener function
+let selectedCount = 0;
+
+// Allow to select certain cards
+grid.addEventListener('click', function(event) {
+  // Grab the clicked item
+  let clickedCard = event.target;
+
+  // Avoid clicking on items that are not cards
+  if (clickedCard.nodeName === 'SECTION') {
+    return;
+  }
+
+  // Only allow two selected cards
+  if (selectedCount < 2) {
+    selectedCount++;
+    clickedCard.classList.add('selected');
+  }
+});

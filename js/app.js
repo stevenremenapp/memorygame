@@ -105,22 +105,54 @@ for (let i = 0; i < gameGrid.length; i++) {
   grid.appendChild(card);
 }
 
+// Variables to track guessing in gameplay
 // Restriction to selecting only two cards only works if selectedCount is outside of the event listener function
 let selectedCount = 0;
+let firstGuess = '';
+let secondGuess = '';
+let previousSelection = null;
 
 // Allow to select certain cards
 grid.addEventListener('click', function(event) {
   // Grab the clicked item
   let clickedCard = event.target;
 
-  // Avoid clicking on items that are not cards
-  if (clickedCard.nodeName === 'SECTION') {
+  // Avoid clicking on items that we want to avoid
+  if (clickedCard.nodeName === 'SECTION' || clickedCard == previousSelection) {
+    console.log(previousSelection);
     return;
   }
 
   // Only allow two selected cards
   if (selectedCount < 2) {
     selectedCount++;
-    clickedCard.classList.add('selected');
+    // Track which card was selected for first guess
+    if (selectedCount === 1) {
+      firstGuess = clickedCard.dataset.name;
+      clickedCard.classList.add('selected');
+      // Track which card was selected for second guess
+    } else {
+      secondGuess = clickedCard.dataset.name;
+      clickedCard.classList.add('selected');
+    }
+    // Run the match function if if both guesses are not empty and the guesses' dataset names match
+    if (firstGuess !== '' && secondGuess !== '') {
+      if (firstGuess === secondGuess) {
+        selectedCardsMatch();
+      }
+    }
+    //Did not work with previousSelection assigned with let
+    previousSelection = clickedCard;
+    console.log(previousSelection);
+    console.log(clickedCard);
   }
 });
+
+// Function to check if cards match
+function selectedCardsMatch() {
+  let selected = document.querySelectorAll('.selected');
+  selected.forEach(function(card) {
+    // card.classList.remove('selected');
+    card.classList.add('matched');
+  });
+};

@@ -118,7 +118,7 @@ grid.addEventListener('click', function(event) {
   let clickedCard = event.target;
 
   // Avoid clicking on items that we want to avoid
-  if (clickedCard.nodeName === 'SECTION' || clickedCard == previousSelection) {
+  if (clickedCard.nodeName === 'SECTION' || clickedCard === previousSelection) {
     console.log(previousSelection);
     return;
   }
@@ -135,10 +135,13 @@ grid.addEventListener('click', function(event) {
       secondGuess = clickedCard.dataset.name;
       clickedCard.classList.add('selected');
     }
-    // Run the match function if if both guesses are not empty and the guesses' dataset names match
+    // Run the match function if both guesses are not empty and the guesses' dataset names match
     if (firstGuess !== '' && secondGuess !== '') {
       if (firstGuess === secondGuess) {
         selectedCardsMatch();
+        resetGuesses();
+      } else {
+        resetGuesses();
       }
     }
     //Did not work with previousSelection assigned with let
@@ -152,7 +155,18 @@ grid.addEventListener('click', function(event) {
 function selectedCardsMatch() {
   let selected = document.querySelectorAll('.selected');
   selected.forEach(function(card) {
-    // card.classList.remove('selected');
     card.classList.add('matched');
+  });
+};
+
+// Function to reset guess cards & count
+function resetGuesses() {
+  firstGuess = '';
+  secondGuess = '';
+  selectedCount = 0;
+
+  let selected = document.querySelectorAll('.selected');
+  selected.forEach(function(card) {
+    card.classList.remove('selected');
   });
 };

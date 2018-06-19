@@ -111,6 +111,7 @@ let selectedCount = 0;
 let firstGuess = '';
 let secondGuess = '';
 let previousSelection = null;
+let delay = 1000;
 
 // Allow to select certain cards
 grid.addEventListener('click', function(event) {
@@ -138,10 +139,10 @@ grid.addEventListener('click', function(event) {
     // Run the match function if both guesses are not empty and the guesses' dataset names match
     if (firstGuess !== '' && secondGuess !== '') {
       if (firstGuess === secondGuess) {
-        selectedCardsMatch();
-        resetGuesses();
+        setTimeout(selectedCardsMatch, delay);
+        setTimeout(resetGuesses, delay);
       } else {
-        resetGuesses();
+        setTimeout(resetGuesses, delay);
       }
     }
     //Did not work with previousSelection assigned with let

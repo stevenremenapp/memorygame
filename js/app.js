@@ -47,36 +47,36 @@
 // });
 
 const cards = [{
-  'name': 'octopus',
-  'src': 'img/animalIcons/animalsSVG/Octopus.svg'
+  'name': 'typingCat',
+  'src': 'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy-downsized.gif'
 },
 {
-  'name': 'lion',
-  'src': 'img/animalIcons/animalsSVG/Lion.svg'
+  'name': 'fancyCat',
+  'src': 'https://media.giphy.com/media/lE5u6gdLEXA9W/giphy.gif'
 },
 {
-  'name': 'kangaroo',
-  'src': 'img/animalIcons/animalsSVG/Kangaroo.svg'
+  'name': 'sandalCat',
+  'src': 'https://media.giphy.com/media/8vQSQ3cNXuDGo/giphy-downsized.gif'
 },
 {
-  'name': 'leopard',
-  'src': 'img/animalIcons/animalsSVG/Leopard.svg'
+  'name': 'laserCat',
+  'src': 'https://media.giphy.com/media/3oEduQAsYcJKQH2XsI/giphy-downsized.gif'
 },
 {
-  'name': 'unicorn',
-  'src': 'img/animalIcons/animalsSVG/Unicorn.svg'
+  'name': 'stairCat',
+  'src': 'https://media.giphy.com/media/l4KibK3JwaVo0CjDO/giphy-downsized.gif'
 },
 {
-  'name': 'turtle',
-  'src': 'img/animalIcons/animalsSVG/Turtle.svg'
+  'name': 'pirateCat',
+  'src': 'https://media.giphy.com/media/NGxO35FivioMw/giphy.gif'
 },
 {
-  'name': 'gorilla',
-  'src': 'img/animalIcons/animalsSVG/Gorilla.svg'
+  'name': 'purrito',
+  'src': 'https://media.giphy.com/media/5HSYaZTcRpYnS/200w_d.gif'
 },
 {
-  'name': 'elephant',
-  'src': 'img/animalIcons/animalsSVG/Elephant.svg'
+  'name': 'massageCat',
+  'src': 'https://media.giphy.com/media/FQaQtdbLnk676/giphy.gif'
 }
 ];
 
@@ -101,8 +101,21 @@ for (let i = 0; i < gameGrid.length; i++) {
   const card = document.createElement('div');
   card.classList.add('card');
   card.dataset.name = gameGrid[i].name;
-  card.style.backgroundImage = `url(${gameGrid[i].src})`;
+
+  // Create front of card
+
+  const front = document.createElement('div');
+  front.classList.add('front');
+
+  // Create back of card
+  const back = document.createElement('div');
+  back.classList.add('back');
+  back.style.backgroundImage = `url(${gameGrid[i].src})`;
+
+  // Append to grid and card
   grid.appendChild(card);
+  card.appendChild(front);
+  card.appendChild(back);
 }
 
 // Variables to track guessing in gameplay
@@ -119,7 +132,7 @@ grid.addEventListener('click', function(event) {
   let clickedCard = event.target;
 
   // Avoid clicking on items that we want to avoid
-  if (clickedCard.nodeName === 'SECTION' || clickedCard === previousSelection) {
+  if (clickedCard.nodeName === 'SECTION' || clickedCard === previousSelection || clickedCard.parentNode.classList.contains('matched')) {
     console.log(previousSelection);
     return;
   }
@@ -129,12 +142,12 @@ grid.addEventListener('click', function(event) {
     selectedCount++;
     // Track which card was selected for first guess
     if (selectedCount === 1) {
-      firstGuess = clickedCard.dataset.name;
-      clickedCard.classList.add('selected');
+      firstGuess = clickedCard.parentNode.dataset.name;
+      clickedCard.parentNode.classList.add('selected');
       // Track which card was selected for second guess
     } else {
-      secondGuess = clickedCard.dataset.name;
-      clickedCard.classList.add('selected');
+      secondGuess = clickedCard.parentNode.dataset.name;
+      clickedCard.parentNode.classList.add('selected');
     }
     // Run the match function if both guesses are not empty and the guesses' dataset names match
     if (firstGuess !== '' && secondGuess !== '') {

@@ -150,7 +150,7 @@ body {
   justify-content: space-evenly;
 }
 
-.card {
+/*.card {
   margin: 5px;
   background-color: pink;
   background-size: contain;
@@ -159,12 +159,46 @@ body {
   height: 150px;
   width: 150px;
   cursor: pointer;
+}*/
+
+.card {
+  position: relative;
+  transition: all .5s linear;
+  transform-style: preserve-3d;
+  margin: 5px;
+}
+
+.card,
+.front,
+.back {
+  height: 150px;
+  width: 150px;
+  cursor: pointer;
+}
+
+.back,
+.front {
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.front {
+  background: #bfcebf url('../img/animalIcons/animalsSVG/catFootprint.svg') no-repeat center / contain;
+}
+
+.back {
+  transform: rotateY(180deg);
+  background-color: #DCE5DB;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .selected {
-  border: 2px solid blue;
+  transform: rotateY(180deg);
 }
 
-.matched {
-  border: 2px solid red;
+.matched .front {
+  background: white !important;
+  cursor: default;
 }

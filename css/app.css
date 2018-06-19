@@ -199,6 +199,7 @@ body {
 }
 
 .matched .front {
-  background: white !important;
+  /*background: white !important;*/
+  border: 2px solid red;
   cursor: default;
 }

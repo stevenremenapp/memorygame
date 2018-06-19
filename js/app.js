@@ -181,6 +181,12 @@ function resetGuesses() {
 
   let selected = document.querySelectorAll('.selected');
   selected.forEach(function(card) {
-    card.classList.remove('selected');
+    // Do not remove selected class if the cards match (aka leave them flipped over on the board)
+    if (card.classList.contains('matched')) {
+      return;
+      // If the cards do not match flip them back over
+    } else {
+      card.classList.remove('selected');
+    }
   });
 };

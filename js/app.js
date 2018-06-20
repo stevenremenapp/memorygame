@@ -123,7 +123,7 @@ for (let i = 0; i < gameGrid.length; i++) {
 let selectedCount = 0;
 let firstGuess = '';
 let secondGuess = '';
-let previousSelection = null;
+// let previousSelection = null;
 let delay = 1000;
 
 // Allow to select certain cards
@@ -132,8 +132,8 @@ grid.addEventListener('click', function(event) {
   let clickedCard = event.target;
 
   // Avoid clicking on items that we want to avoid
-  if (clickedCard.nodeName === 'SECTION' || clickedCard === previousSelection || clickedCard.parentNode.classList.contains('matched')) {
-    console.log(previousSelection);
+  if (clickedCard.nodeName === 'SECTION' || clickedCard.parentNode.classList.contains('selected') || clickedCard.parentNode.classList.contains('matched')) {
+    // console.log(previousSelection);
     return;
   }
 
@@ -159,9 +159,9 @@ grid.addEventListener('click', function(event) {
       }
     }
     //Did not work with previousSelection assigned with let
-    previousSelection = clickedCard;
-    console.log(previousSelection);
-    console.log(clickedCard);
+    // previousSelection = clickedCard;
+    // console.log(previousSelection);
+    // console.log(clickedCard);
   }
 });
 

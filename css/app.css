@@ -198,8 +198,11 @@ body {
   transform: rotateY(180deg);
 }
 
-.matched .front {
-  /*background: white !important;*/
+.selected .back {
+  cursor: default;
+}
+
+.matched .back {
   border: 2px solid red;
   cursor: default;
 }

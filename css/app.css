@@ -227,6 +227,15 @@ header h1 {
 }
 
 .matched .back {
-  border: 2px solid red;
   cursor: default;
+}
+
+.matched .back::after {
+  display: block;
+  position: relative;
+  background-image: linear-gradient(rgba(191, 206, 191, 0.8), rgba(191, 206, 191, 0.8));
+  /*margin-top: -150px;*/
+  height: 100%;
+  width: 100%;
+  content: '';
 }

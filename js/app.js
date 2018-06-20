@@ -125,16 +125,16 @@ let firstGuess = '';
 let secondGuess = '';
 // let previousSelection = null;
 let delay = 1000;
+let moveCount = 0;
 
 // Allow to select certain cards
 grid.addEventListener('click', function(event) {
   // Grab the clicked item
   let clickedCard = event.target;
 
-  // Avoid clicking on items that we want to avoid
+  // Avoid clicking on certain items
   if (clickedCard.nodeName === 'SECTION' || clickedCard.parentNode.classList.contains('selected') || clickedCard.parentNode.classList.contains('matched')) {
-    // console.log(previousSelection);
-    return;
+      return;
   }
 
   // Only allow two selected cards
@@ -154,8 +154,10 @@ grid.addEventListener('click', function(event) {
       if (firstGuess === secondGuess) {
         setTimeout(selectedCardsMatch, delay);
         setTimeout(resetGuesses, delay);
+        setTimeout(moveCounter, delay);
       } else {
         setTimeout(resetGuesses, delay);
+        setTimeout(moveCounter, delay);
       }
     }
     //Did not work with previousSelection assigned with let
@@ -190,3 +192,16 @@ function resetGuesses() {
     }
   });
 };
+
+// Function to track and display moveCount
+function moveCounter() {
+  moveCount++;
+  let moveCountDisplay = document.querySelector('.moves');
+  let moveTextDisplay = document.querySelector('.move-plural');
+  moveCountDisplay.textContent = moveCount;
+  if (moveCount >= 2) {
+    moveTextDisplay.textContent = " Moves";
+  } else {
+    moveTextDisplay.textContent = " Move";
+  }
+}

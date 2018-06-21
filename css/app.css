@@ -155,7 +155,7 @@ header h1 {
   margin: 0 auto;
 }
 
-.stars {
+#catRating {
   list-style-type: none;
   display: inline-flex;
   padding: 0;

@@ -155,9 +155,11 @@ grid.addEventListener('click', function(event) {
         setTimeout(selectedCardsMatch, delay);
         setTimeout(resetGuesses, delay);
         setTimeout(moveCounter, delay);
+        setTimeout(displayCatRating, delay);
       } else {
         setTimeout(resetGuesses, delay);
         setTimeout(moveCounter, delay);
+        setTimeout(displayCatRating, delay);
       }
     }
     //Did not work with previousSelection assigned with let
@@ -203,5 +205,22 @@ function moveCounter() {
     moveTextDisplay.textContent = " Moves";
   } else {
     moveTextDisplay.textContent = " Move";
+  }
+}
+
+// Function to track and display cat rating
+function displayCatRating() {
+  let catsList = document.getElementById('catRating');
+  let cat = document.querySelectorAll('.cat');
+  if (moveCount === 11) {
+    catsList.removeChild(cat[0]);
+  } else if (moveCount === 16) {
+    catsList.removeChild(cat[0]);
+  } else if (moveCount === 21) {
+    catsList.removeChild(cat[0]);
+  } else if (moveCount === 26) {
+    catsList.removeChild(cat[0]);
+  } else if (moveCount === 31) {
+    catsList.removeChild(cat[0]);
   }
 }

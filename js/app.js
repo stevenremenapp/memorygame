@@ -169,6 +169,8 @@ grid.addEventListener('click', function(event) {
   }
 });
 
+timer();
+
 // Function to check if cards match
 function selectedCardsMatch() {
   let selected = document.querySelectorAll('.selected');
@@ -212,15 +214,41 @@ function moveCounter() {
 function displayCatRating() {
   let catsList = document.getElementById('catRating');
   let cat = document.querySelectorAll('.cat');
-  if (moveCount === 11) {
+  if (moveCount === 12) {
     catsList.removeChild(cat[0]);
-  } else if (moveCount === 16) {
+  } else if (moveCount === 17) {
     catsList.removeChild(cat[0]);
-  } else if (moveCount === 21) {
+  } else if (moveCount === 22) {
     catsList.removeChild(cat[0]);
-  } else if (moveCount === 26) {
-    catsList.removeChild(cat[0]);
-  } else if (moveCount === 31) {
+  } else if (moveCount === 27) {
     catsList.removeChild(cat[0]);
   }
+}
+
+// Function for count up timer
+function timer() {
+  let sec = 0;
+
+  function padValue(value) {
+    if (value > 9) {
+      return value;
+    } else {
+      return "0" + value;
+    }
+  }
+
+  setInterval(function() {
+    // Putting minutes first causes weird hiccup at each turn from 59 secs to the next minute
+    document.querySelector('.seconds').innerHTML = padValue(++sec%60);
+    document.querySelector('.minutes').innerHTML = padValue(parseInt(sec/60,10));
+    // let secs = document.querySelector('.seconds').textContent;
+    // console.log(secs);
+    let mins = document.querySelector('.minutes').textContent;
+    console.log(mins);
+
+    // RUN FUNCTION THAT CHANGES SCREEN IF MORE THAN 30 MINUTES HAS ELAPSED
+
+  }, 1000);
+
+
 }

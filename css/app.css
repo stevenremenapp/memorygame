@@ -162,6 +162,7 @@ header h1 {
 }
 
 .moves-flex-wrapper,
+.timer-flex-wrapper,
 .restart {
   align-self: center;
 }

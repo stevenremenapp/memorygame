@@ -1,133 +1,8 @@
-/*html {
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background-color: #dce5db;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%2392ac95' fill-opacity='0.4' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76zM.07 0h20.1l-.08.07A20.02 20.02 0 0 1 .75 5.25 20.08 20.08 0 0 1 .07 0zm1.94 40h2.53l4.26-4.24v-9.78A17.96 17.96 0 0 0 2 40zm5.38 0h9.8a17.98 17.98 0 0 0 6.67-16.42L7.4 40zm3.43-15.42v9.17l11.62-11.59c-3.97-.5-8.08.3-11.62 2.42zm32.86-.78A18 18 0 0 0 63.85 3.63L43.68 23.8zm7.2-19.17v9.15L62.43 2.22c-3.96-.5-8.05.3-11.57 2.4zm-3.49 2.72c-4.1 4.1-5.81 9.69-5.13 15.03l6.61-6.6V6.02c-.51.41-1 .85-1.48 1.33zM17.18 0H7.42L3.64 3.78A18 18 0 0 0 17.18 0zM2.08 0c-.01.8.04 1.58.14 2.37L4.59 0H2.07z'%3E%3C/path%3E%3C/svg%3E");
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-h1 {
-  font-weight: bold;
-}
-
-/*
-*Styles for the deck of cards
-*/
-/*
-.deck {
-  width: 660px;
-  min-height: 680px;
-  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-  padding: 32px;
-  border-radius: 10px;
-  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 0 3em;
-}
-
-.deck .card {
-  height: 125px;
-  width: 125px;
-  background: #2e3d49;
-  font-size: 0;
-  color: #fff;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
-}
-
-.deck .card img {
-  width: 0;
-  height: 0;
-}
-
-.deck .card.open img {
-  width: 90%;
-  height: 90%;
-}
-
-.deck .card.show img {
-  width: 90%;
-  height: 90%;
-}
-
-.deck .card.match img {
-  width: 90%;
-  height: 90%;
-}
-
-.deck .card.open {
-  font-size: 33px;
-}
-
-.deck .card.show {
-  font-size: 33px;
-}
-
-.deck .card.match {
-  cursor: default;
-  background: #02ccba;
-  font-size: 33px;
-}
-
-/*
-* Styles for the Score Panel
-*/
-
-
-/*.score-panel {
-  text-align: left;
-  width: 345px;
-  margin-bottom: 10px;
-}
-
-.score-panel .stars {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  margin: 0 5px 0 0;
-}
-
-.score-panel .stars li {
-    list-style: none;
-    display: inline-block;
-}
-
-.score-panel .restart {
-    float: right;
-    cursor: pointer;
-}*/
-
 html {
   box-sizing: border-box;
+  font-family: Arial;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 *,
@@ -152,7 +27,7 @@ h1 {
   text-align: center;
   color: #6D4C41;
   margin-bottom: 10px;
-  font-family: RTJ;
+  font-family: RTJ, Arial;
   font-size: 50px;
 }
 
@@ -164,7 +39,7 @@ h1 {
   margin: 0 auto;
   background: #b5ffed;
   border-radius: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   box-shadow: 8px 8px 20px 0 rgba(36, 51, 63, 0.5),
               -8px -8px 20px 0 rgba(36, 51, 63, 0.5);
 }
@@ -177,8 +52,12 @@ h1 {
 
 .moves-flex-wrapper,
 .timer-flex-wrapper,
-.restart {
+#restart {
   align-self: center;
+}
+
+#restart {
+  cursor: pointer;
 }
 
 .grid {
@@ -260,4 +139,48 @@ h1 {
   height: 100%;
   width: 100%;
   content: '';
+}
+
+/*Modal*/
+
+/*This is the gray window behind the dialog box*/
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  /*enable scroll bar if needed*/
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/*This is the content of the modal*/
+.modal-content {
+  background-color: #f4f4f4;
+  margin: 20% auto;
+  padding: 0 10px 20px 20px;
+  width: 70%;
+  box-shadow: 8px 8px 20px 0 rgba(181, 255, 237, 0.5);
+  border-radius: 10px;
+}
+
+.modal-content p {
+  padding-top: 20px;
+}
+
+/*This is the close button ('x')*/
+.closeBtn {
+  color: #ccc;
+  float: right;
+  font-size: 30px;
+}
+
+.closeBtn:hover,
+.closeBtn:focus {
+  color: #3d3d3d;
+  text-decoration: none;
+  cursor: pointer;
 }

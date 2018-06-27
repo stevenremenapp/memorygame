@@ -47,8 +47,11 @@ function startGame() {
   //Close the modal
   closeModal();
 
-  //Check for existing game and remove it
+  //Check for existing game/grid and remove it
   checkForGrid();
+
+  //Reset the cat game rating
+  resetGameRating();
 
   // Shuffle the cards
   let gameGrid = cards.concat(cards);
@@ -65,9 +68,9 @@ function startGame() {
   // Display the cards on the screen
   // Steve Griffith: https://www.youtube.com/watch?v=AqgVLYpBWG8
   for (let i = 0; i < gameGrid.length; i++) {
-    console.log(gameGrid[i]);
-    console.log(gameGrid[i].name);
-    console.log(gameGrid[i].src);
+    // console.log(gameGrid[i]);
+    // console.log(gameGrid[i].name);
+    // console.log(gameGrid[i].src);
     const card = document.createElement('div');
     card.classList.add('card');
     card.dataset.name = gameGrid[i].name;
@@ -222,10 +225,31 @@ restartBtn.addEventListener('click', startGame);
 
 function checkForGrid() {
   let grid = document.querySelector('.grid');
-  let test = document.body.contains(game);
-  console.log(test);
+  // let test = document.body.contains(game);
+  // console.log(test);
   if (document.body.contains(grid)) {
     grid.parentNode.removeChild(grid);
+  }
+}
+
+function resetGameRating() {
+  let catsList = document.getElementById('catRating');
+  let catCount = catsList.childElementCount;
+  console.log(catCount);
+
+  // Can't append already existing cat li item because it is a textNode and appendChild only takes node object
+  while (catCount < 5) {
+    // let cats = document.querySelectorAll('.cat');
+    // let cat = cats[0];
+    // let appendCat.innerHTML = cat;
+    // console.log(cat);
+    // console.log(cat[0]);
+    let newCatRating = document.createElement('li');
+    newCatRating.innerHTML = '😸';
+    newCatRating.setAttribute('class', 'cat');
+    // let newCatRating = document.createTextNode('😸');
+    catCount++;
+    catsList.appendChild(newCatRating);
   }
 }
 

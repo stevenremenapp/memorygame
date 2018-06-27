@@ -53,6 +53,9 @@ function startGame() {
   //Reset the cat game rating
   resetGameRating();
 
+  //Reset the Move Counter
+  resetMoveCounter();
+
   // Shuffle the cards
   let gameGrid = cards.concat(cards);
   gameGrid.sort(function() {
@@ -251,6 +254,14 @@ function resetGameRating() {
     catCount++;
     catsList.appendChild(newCatRating);
   }
+}
+
+function resetMoveCounter() {
+  moveCount = 0;
+  let moveCountDisplay = document.querySelector('.moves');
+  let moveTextDisplay = document.querySelector('.move-plural');
+  moveCountDisplay.innerHTML = '';
+  moveTextDisplay.innerHTML = '';
 }
 
 

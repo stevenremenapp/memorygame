@@ -44,6 +44,8 @@ let moveCount = 0;
 
 //Function to start gameplay
 function startGame() {
+  console.log("startGame");
+
   //Close the modal
   closeModal();
 
@@ -55,6 +57,9 @@ function startGame() {
 
   //Reset the Move Counter
   resetMoveCounter();
+
+  //Reset the timer
+  // resetTimer();
 
   // Shuffle the cards
   let gameGrid = cards.concat(cards);
@@ -95,7 +100,10 @@ function startGame() {
   }
 
   //Start the timer
+  console.log("pre-timer");
   timer();
+  console.log("post-timer");
+
 
   //Initiate gameplay function
   gameplay();
@@ -196,6 +204,10 @@ function displayGameRating() {
   }
 }
 
+
+//Called so it can be accessed in the reset button event listener
+let clock;
+
 // Function for count up timer
 function timer() {
   let sec = 0;
@@ -208,7 +220,7 @@ function timer() {
     }
   }
 
-  setInterval(function() {
+  clock = setInterval(function() {
     // Putting minutes first causes weird hiccup at each turn from 59 secs to the next minute
     document.querySelector('.seconds').innerHTML = padValue(++sec%60);
     document.querySelector('.minutes').innerHTML = padValue(parseInt(sec/60,10));
@@ -220,11 +232,35 @@ function timer() {
     // RUN FUNCTION THAT CHANGES SCREEN IF MORE THAN 30 MINUTES HAS ELAPSED
 
   }, 1000);
+
+
+  // function resetTimer() {
+  //   console.log("resetTimer");
+  //
+  //   console.log("resetTimer#clearInterval called");
+  // };
+  //
+  // restartBtn.addEventListener('click', resetTimer);
+  // console.log(restartIsClicked);
+
+  // if (restartIsClicked) {
+  //   console.log("clicked");
+  //
+  // };
 }
 
 //Restart Icon functionality
 let restartBtn = document.getElementById('restart');
-restartBtn.addEventListener('click', startGame);
+restartBtn.addEventListener('click', function() {
+  console.log("pre-clearInterval");
+  console.log(clock);
+  clearInterval(clock);
+  console.log(clock);
+  console.log("post-clearInterval");
+  console.log("pre-startGame");
+  startGame();
+  console.log("post-startGame");
+});
 
 function checkForGrid() {
   let grid = document.querySelector('.grid');
@@ -263,6 +299,10 @@ function resetMoveCounter() {
   moveCountDisplay.innerHTML = '';
   moveTextDisplay.innerHTML = '';
 }
+
+// function resetTimer() {
+//   clearInterval(clock);
+// }
 
 
 

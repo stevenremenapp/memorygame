@@ -323,29 +323,40 @@ function resetMatchCardCounter() {
 function gameCompleted() {
   if (matchCardCount === 2) {
     console.log("GAME OVER!");
+
     //Display modal
     completedGameModal.style.display = 'block';
+
     //Display number of moves
     console.log(moveCount);
     let completedMovesDisplay = document.querySelector('.completedMoves');
     completedMovesDisplay.textContent = moveCount;
+
     //Stop clock
     clearInterval(clock);
+
     //Display time required
     let min = document.querySelector('.minutes').textContent;
     console.log("Min elapsed " + min);
     let completedMinutesDisplay = document.querySelector('.completedMinutes');
+    // if (min >= 01) {
     completedMinutesDisplay.textContent = min;
+    // }
     let secs = document.querySelector('.seconds').textContent;
     console.log("Secs elapsed: " + secs);
     let completedSecondsDisplay = document.querySelector('.completedSeconds');
     completedSecondsDisplay.textContent = secs;
-    //Display cat rating
+
+    //Reset previous completed cat rating to 0
+    let completedCatRating = document.getElementById('completedCatRating');
+    let completedCats = completedCatRating.getElementsByClassName('cat');
+    while (completedCats[0]) {
+      completedCats[0].parentNode.removeChild(completedCats[0]);
+    }
+    //Display completed cat rating
     let catsList = document.getElementById('catRating');
     let catCount = catsList.childElementCount;
     for (let i = 0; i < catCount; i++) {
-      console.log('STAR!');
-      let completedCatRating = document.getElementById('completedCatRating');
       let completedCatAdded = document.createElement('li');
       completedCatAdded.innerHTML = '😸';
       completedCatAdded.setAttribute('class', 'cat');
@@ -382,7 +393,7 @@ playAgainBtn.addEventListener('click', function() {
 });
 catGifsBtn.addEventListener('click', function() {
   closeCompletedGameModal();
-  startGame();
+  location.href = "https://giphy.com/explore/cat";
 });
 
 //Funtion to open modal

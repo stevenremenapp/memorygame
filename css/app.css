@@ -181,6 +181,19 @@ h1 {
   padding-top: 20px;
 }
 
+.modalBtn {
+  background: rgba(200, 182, 176, 0.85);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px;
+
+}
+
+.modalBtn:hover {
+  background: #c8b6b0;
+}
+
 /*This is the close button ('x')*/
 /* .closeBtn {
   color: #ccc;

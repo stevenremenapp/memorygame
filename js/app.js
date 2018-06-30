@@ -1,3 +1,5 @@
+// debugger;
+
 const cards = [{
   'name': 'typingCat',
   'src': 'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy-downsized.gif'
@@ -37,6 +39,7 @@ const cards = [{
 let selectedCount = 0;
 let firstGuess = '';
 let secondGuess = '';
+let matchCardCount = 0;
 // let previousSelection = null;
 let delay = 1000;
 let moveCount = 0;
@@ -47,7 +50,7 @@ function startGame() {
   console.log("startGame");
 
   //Close the modal
-  closeModal();
+  closeStartModal();
 
   //Check for existing game/grid and remove it
   checkForGrid();
@@ -58,13 +61,16 @@ function startGame() {
   //Reset the Move Counter
   resetMoveCounter();
 
+  //Reset the Matched Card Counter
+  resetMatchCardCounter();
+
   //Reset the timer
   // resetTimer();
 
   // Shuffle the cards
   let gameGrid = cards.concat(cards);
   gameGrid.sort(function() {
-    return 0.5 - Math.random()
+    return 0.5 - Math.random();
   });
 
   // Create cards grid and append to the DOM
@@ -97,13 +103,10 @@ function startGame() {
     grid.appendChild(card);
     card.appendChild(front);
     card.appendChild(back);
-  }
+  }  
 
   //Start the timer
-  console.log("pre-timer");
   timer();
-  console.log("post-timer");
-
 
   //Initiate gameplay function
   gameplay();
@@ -119,7 +122,7 @@ function gameplay() {
 
     // Avoid clicking on certain items
     if (clickedCard.nodeName === 'SECTION' || clickedCard.parentNode.classList.contains('selected') || clickedCard.parentNode.classList.contains('matched')) {
-        return;
+      return;
     }
 
     // Only allow two selected cards
@@ -137,14 +140,14 @@ function gameplay() {
       // Run the match function if both guesses are not empty and the guesses' dataset names match
       if (firstGuess !== '' && secondGuess !== '') {
         if (firstGuess === secondGuess) {
+          setTimeout(moveCounter, delay);
+          setTimeout(displayGameRating, delay);
           setTimeout(selectedCardsMatch, delay);
           setTimeout(resetGuesses, delay);
-          setTimeout(moveCounter, delay);
-          setTimeout(displayGameRating, delay);
         } else {
-          setTimeout(resetGuesses, delay);
           setTimeout(moveCounter, delay);
           setTimeout(displayGameRating, delay);
+          setTimeout(resetGuesses, delay);
         }
       }
       //Did not work with previousSelection assigned with let
@@ -152,16 +155,13 @@ function gameplay() {
       // console.log(previousSelection);
       // console.log(clickedCard);
     }
+
+    // let allMatchedCards = document.querySelectorAll('.grid .matched');
+    // if (allMatchedCards.length === 2) {
+    //   console.log('cats matched!');
+    // }
   });
 }
-
-// Function to check if cards match
-function selectedCardsMatch() {
-  let selected = document.querySelectorAll('.selected');
-  selected.forEach(function(card) {
-    card.classList.add('matched');
-  });
-};
 
 // Function to reset guess cards & count
 function resetGuesses() {
@@ -204,6 +204,18 @@ function displayGameRating() {
   }
 }
 
+// Function to check if cards match
+function selectedCardsMatch() {
+  let selected = document.querySelectorAll('.selected');
+  selected.forEach(function(card) {
+    card.classList.add('matched');
+  });
+
+  //Check for game over and perform game over actions
+  matchCardCount++;
+  console.log("Match card count:" + matchCardCount);
+  gameCompleted();
+};
 
 //Called so it can be accessed in the reset button event listener
 let clock;
@@ -252,14 +264,8 @@ function timer() {
 //Restart Icon functionality
 let restartBtn = document.getElementById('restart');
 restartBtn.addEventListener('click', function() {
-  console.log("pre-clearInterval");
-  console.log(clock);
   clearInterval(clock);
-  console.log(clock);
-  console.log("post-clearInterval");
-  console.log("pre-startGame");
   startGame();
-  console.log("post-startGame");
 });
 
 function checkForGrid() {
@@ -290,6 +296,12 @@ function resetGameRating() {
     catCount++;
     catsList.appendChild(newCatRating);
   }
+  // try {
+  //   throw new Error("hdsjfhgsdfh");
+  // } catch (exception) {
+  //   console.log("Error occurred, but handled.");
+  // }
+  
 }
 
 function resetMoveCounter() {
@@ -300,28 +312,78 @@ function resetMoveCounter() {
   moveTextDisplay.innerHTML = '';
 }
 
+function resetMatchCardCounter() {
+  matchCardCount = 0;
+}
+
 // function resetTimer() {
 //   clearInterval(clock);
 // }
 
+function gameCompleted() {
+  if (matchCardCount === 2) {
+    console.log("GAME OVER!");
+    //Display modal
+    completedGameModal.style.display = 'block';
+    //Display number of moves
+    console.log(moveCount);
+    let completedMovesDisplay = document.querySelector('.completedMoves');
+    completedMovesDisplay.textContent = moveCount;
+    //Stop clock
+    clearInterval(clock);
+    //Display time required
+    let min = document.querySelector('.minutes').textContent;
+    console.log("Min elapsed " + min);
+    let completedMinutesDisplay = document.querySelector('.completedMinutes');
+    completedMinutesDisplay.textContent = min;
+    let secs = document.querySelector('.seconds').textContent;
+    console.log("Secs elapsed: " + secs);
+    let completedSecondsDisplay = document.querySelector('.completedSeconds');
+    completedSecondsDisplay.textContent = secs;
+    //Display cat rating
+    let catsList = document.getElementById('catRating');
+    let catCount = catsList.childElementCount;
+    for (let i = 0; i < catCount; i++) {
+      console.log('STAR!');
+      let completedCatRating = document.getElementById('completedCatRating');
+      let completedCatAdded = document.createElement('li');
+      completedCatAdded.innerHTML = '😸';
+      completedCatAdded.setAttribute('class', 'cat');
+      completedCatRating.appendChild(completedCatAdded);
+    }
+  }
+}
 
 
-// Modal Functioning
+
+// Modal Functioning -- Brad Traversy: https://www.youtube.com/watch?v=6ophW7Ask_0
 
 //Grab elements
 let startGameModal = document.getElementById('startGameModal');
 // let closeBtn = document.getElementsByClassName('closeBtn')[0];
 let startGameBtn = document.getElementById('startGame');
 
+let completedGameModal = document.getElementById('completedGameModal');
+let playAgainBtn = document.getElementById('playAgain');
+let catGifsBtn = document.getElementById('catGifs');
+
 //Listen for open click
 // modalBtn.addEventListener('click', openModal);
 //Listen for close click
-// closeBtn.addEventListener('click', closeModal);
+// closeBtn.addEventListener('click', closeStartModal);
 //Listen for closing click outside of dialog window
 // window.addEventListener('click', clickOutside);
 
 //Listen for click on the Go! button
 startGameBtn.addEventListener('click', startGame);
+playAgainBtn.addEventListener('click', function() {
+  closeCompletedGameModal();
+  startGame();
+});
+catGifsBtn.addEventListener('click', function() {
+  closeCompletedGameModal();
+  startGame();
+});
 
 //Funtion to open modal
 // function openModal() {
@@ -329,9 +391,15 @@ startGameBtn.addEventListener('click', startGame);
 // };
 
 //Function to close modal
-function closeModal() {
+function closeStartModal() {
   startGameModal.style.display = 'none';
 };
+
+function closeCompletedGameModal() {
+  completedGameModal.style.display = 'none';
+}
+
+
 
 //Function to close modal if user clicks outside of dialog
 // function clickOutside(event) {

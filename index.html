@@ -3,7 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cat Detective 🔍</title>
+    <title>Cat Detective</title>
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/app.css">
   </head>
@@ -32,12 +41,26 @@
     <div id="game"></div>
     <!-- Modal Test Button -->
     <!-- <button id="modalBtn" class="button">Click Here</button> -->
-    <!-- Modal -->
+    <!-- Start Game Modal -->
     <div id="startGameModal" class="modal">
       <div class="modal-content">
         <!-- <span class="closeBtn">&times;</span> -->
         <p>Start your game, detective?</p>
         <button id="startGame">Go!</button>
+      </div>
+    </div>
+    <!-- Completed Game Modal -->
+    <div id="completedGameModal" class="modal">
+      <div class="modal-content">
+        <p>🎉You win!🎉</p>
+        <p>You completed the game with
+          <span class="completedMoves"></span> moves in
+          <span class="completedMinutes"></span>:<span class="completedSeconds"></span>.</p>
+        <p>Your rating is:</p>
+        <ul id="completedCatRating"></ul>
+        <p>What happens now?</p>
+        <button id="playAgain">Play Again!</button>
+        <button id="catGifs">Give me more cat gifs!</button>
       </div>
     </div>
     <script type="text/javascript" src="js/app.js"></script>

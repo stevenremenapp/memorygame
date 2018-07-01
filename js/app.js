@@ -333,6 +333,7 @@ function timer() {
 //Restart Icon functionality
 let restartBtn = document.getElementById('restart');
 restartBtn.addEventListener('click', function() {
+  resetGuesses();
   clearInterval(clock);
   startGame();
 });

@@ -1,6 +1,6 @@
 // debugger;
 
-const cards = [{
+const allCards = [{
   'name': 'typingCat',
   'src': 'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy-downsized.gif'
 },
@@ -34,6 +34,22 @@ const cards = [{
 }
 ];
 
+const cards = [];
+
+//Function to randomly select from all cards array
+function randomCardSelect() {
+  while (cards.length <= 5) {
+    let card = allCards[Math.floor(Math.random() * allCards.length)];
+    if (cards.includes(card) === false) {
+      cards.push(card);
+    }
+  }
+  // for (let i = 0; i < 4; i++) {
+  //   let card = allCards[Math.floor(Math.random() * allCards.length)];
+  //   cards.push(card);
+  // }
+}
+
 // Variables to track guessing in gameplay
 // Restriction to selecting only two cards only works if selectedCount is outside of the event listener function
 let selectedCount = 0;
@@ -66,6 +82,8 @@ function startGame() {
 
   //Reset the timer
   // resetTimer();
+
+  randomCardSelect();
 
   // Shuffle the cards
   let gameGrid = cards.concat(cards);
@@ -321,7 +339,7 @@ function resetMatchCardCounter() {
 // }
 
 function gameCompleted() {
-  if (matchCardCount === 2) {
+  if (matchCardCount === 6) {
     console.log("GAME OVER!");
 
     //Display modal
@@ -386,7 +404,9 @@ let catGifsBtn = document.getElementById('catGifs');
 // window.addEventListener('click', clickOutside);
 
 //Listen for click on the Go! button
-startGameBtn.addEventListener('click', startGame);
+startGameBtn.addEventListener('click', function() {
+  startGame();
+});
 playAgainBtn.addEventListener('click', function() {
   closeCompletedGameModal();
   startGame();

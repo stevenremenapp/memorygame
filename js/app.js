@@ -1,5 +1,11 @@
 // debugger;
 
+// Variables that will need to change with different game sizes:
+
+// - matchCardCount (to completion)
+// - ratingArray
+// - length of cards array in randomCardSelect function
+
 const allCards = [{
   'name': 'typingCat',
   'src': 'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy-downsized.gif'
@@ -36,18 +42,56 @@ const allCards = [{
 
 const cards = [];
 
+//Function to set variables based on size of game chosen
+function setGameplayVariables() {
+  console.log("pre-infunction-gpvariables");
+  // let startGameModalContent = document.querySelector('.modal-content');
+  // startGameModalContent.addEventListener('click', function(event) {
+  //   let clickedBtn = event.target;
+  //   if (clickedBtn.tagName === 'BUTTON') {
+  //     console.log("three");
+      // if (startGameBtn4.dataset.numCards === 'four' && btn4Clicked) {
+      if (btn4Clicked) {
+        console.log("four");
+        numCardsSelected = 1;
+        console.log(numCardsSelected);
+        matchCardCountToCompletion = 2;
+        ratingArray = [1, 2, 3, 4];
+      } else if (btn8Clicked) {
+        console.log("eight");
+        numCardsSelected = 3;
+        console.log(numCardsSelected);
+        matchCardCountToCompletion = 4;
+        ratingArray = [2, 4, 6, 8];
+      } else if (btn16Clicked) {
+        console.log("sixteen");
+        numCardsSelected = 7;
+        console.log(numCardsSelected);
+        matchCardCountToCompletion = 8;
+        ratingArray = [4, 8, 12, 16];
+      }
+      console.log("post-infunction-gpvariables");
+    }
+  // });
+  
+// }
+
 //Function to randomly select from all cards array
 function randomCardSelect() {
-  while (cards.length <= 5) {
-    let card = allCards[Math.floor(Math.random() * allCards.length)];
-    if (cards.includes(card) === false) {
-      cards.push(card);
+  //Clear previous card selections
+  while (cards[0]) {
+    cards.shift();
+  };
+
+  console.log("pre-randomselect");
+  // while (cards.length <= 1) {
+  while (cards.length <= numCardsSelected) {
+    let cardChosen = allCards[Math.floor(Math.random() * allCards.length)];
+    if (cards.includes(cardChosen) === false) {
+      cards.push(cardChosen);
     }
   }
-  // for (let i = 0; i < 4; i++) {
-  //   let card = allCards[Math.floor(Math.random() * allCards.length)];
-  //   cards.push(card);
-  // }
+  console.log("post-randomselect");
 }
 
 // Variables to track guessing in gameplay
@@ -56,6 +100,9 @@ let selectedCount = 0;
 let firstGuess = '';
 let secondGuess = '';
 let matchCardCount = 0;
+let matchCardCountToCompletion;
+let numCardsSelected;
+let ratingArray;
 // let previousSelection = null;
 let delay = 1000;
 let moveCount = 0;
@@ -83,6 +130,10 @@ function startGame() {
   //Reset the timer
   // resetTimer();
 
+  //Set the gameplay variables
+  // setGameplayVariables();
+
+  //Choose cards for deck based on difficulty chosen
   randomCardSelect();
 
   // Shuffle the cards
@@ -216,7 +267,7 @@ function moveCounter() {
 function displayGameRating() {
   let catsList = document.getElementById('catRating');
   let cat = document.querySelectorAll('.cat');
-  let ratingArray = [2, 4, 6, 8];
+  // let ratingArray = [2, 4, 6, 8];
   if (ratingArray.indexOf(moveCount) > -1) {
     catsList.removeChild(cat[0]);
   }
@@ -339,7 +390,8 @@ function resetMatchCardCounter() {
 // }
 
 function gameCompleted() {
-  if (matchCardCount === 6) {
+  // if (matchCardCount === 2) {
+  if (matchCardCount === matchCardCountToCompletion) {
     console.log("GAME OVER!");
 
     //Display modal
@@ -390,7 +442,9 @@ function gameCompleted() {
 //Grab elements
 let startGameModal = document.getElementById('startGameModal');
 // let closeBtn = document.getElementsByClassName('closeBtn')[0];
-let startGameBtn = document.getElementById('startGame');
+let startGameBtn4 = document.getElementById('startGame4');
+let startGameBtn8 = document.getElementById('startGame8');
+let startGameBtn16 = document.getElementById('startGame16');
 
 let completedGameModal = document.getElementById('completedGameModal');
 let playAgainBtn = document.getElementById('playAgain');
@@ -404,12 +458,44 @@ let catGifsBtn = document.getElementById('catGifs');
 // window.addEventListener('click', clickOutside);
 
 //Listen for click on the Go! button
-startGameBtn.addEventListener('click', function() {
+let btn4Clicked = false;
+startGameBtn4.addEventListener('click', function() {
+  btn4Clicked = true;
+  console.log("pre-gpvariables");
+  setGameplayVariables();
+  console.log("post-gpvariables");
+  console.log("pre-startgame");
   startGame();
+  console.log("post-startgame");
 });
+
+let btn8Clicked = false;
+startGameBtn8.addEventListener('click', function() {
+  btn8Clicked = true;
+  console.log("pre-gpvariables");
+  setGameplayVariables();
+  console.log("post-gpvariables");
+  console.log("pre-startgame");
+  startGame();
+  console.log("post-startgame");
+});
+
+let btn16Clicked = false;
+startGameBtn16.addEventListener('click', function() {
+  btn16Clicked = true;
+  console.log("pre-gpvariables");
+  setGameplayVariables();
+  console.log("post-gpvariables");
+  console.log("pre-startgame");
+  startGame();
+  console.log("post-startgame");
+});
+
+
+
 playAgainBtn.addEventListener('click', function() {
   closeCompletedGameModal();
-  startGame();
+  openStartModal();
 });
 catGifsBtn.addEventListener('click', function() {
   closeCompletedGameModal();
@@ -425,6 +511,11 @@ catGifsBtn.addEventListener('click', function() {
 function closeStartModal() {
   startGameModal.style.display = 'none';
 };
+
+//Function to open start modal
+function openStartModal() {
+  startGameModal.style.display = 'block';
+}
 
 function closeCompletedGameModal() {
   completedGameModal.style.display = 'none';

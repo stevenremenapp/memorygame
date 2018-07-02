@@ -496,17 +496,19 @@ startGameBtn16.addEventListener('click', function() {
 
 playAgainBtn.addEventListener('click', function() {
   closeCompletedGameModal();
+  // matchCardCountToCompletion = undefined;
+  // numCardsSelected = undefined;
+  // ratingArray = undefined;
+  btn4Clicked = false;
+  btn8Clicked = false;
+  btn16Clicked = false;
   openStartModal();
 });
+
 catGifsBtn.addEventListener('click', function() {
   closeCompletedGameModal();
   location.href = "https://giphy.com/explore/cat";
 });
-
-//Funtion to open modal
-// function openModal() {
-//   modal.style.display = 'block';
-// };
 
 //Function to close modal
 function closeStartModal() {

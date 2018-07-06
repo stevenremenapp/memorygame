@@ -43,7 +43,7 @@ const allCards = [{
 const cards = [];
 
 //Function to set variables based on size of game chosen
-function setGameplayVariables() {
+function setGameplayVariables(numCards) {
   console.log("pre-infunction-gpvariables");
   // let startGameModalContent = document.querySelector('.modal-content');
   // startGameModalContent.addEventListener('click', function(event) {
@@ -51,25 +51,50 @@ function setGameplayVariables() {
   //   if (clickedBtn.tagName === 'BUTTON') {
   //     console.log("three");
       // if (startGameBtn4.dataset.numCards === 'four' && btn4Clicked) {
-      if (btn4Clicked) {
-        console.log("four");
-        numCardsSelected = 1;
-        console.log(numCardsSelected);
-        matchCardCountToCompletion = 2;
-        ratingArray = [1, 2, 3, 4];
-      } else if (btn8Clicked) {
-        console.log("eight");
-        numCardsSelected = 3;
-        console.log(numCardsSelected);
-        matchCardCountToCompletion = 4;
-        ratingArray = [2, 4, 6, 8];
-      } else if (btn16Clicked) {
-        console.log("sixteen");
-        numCardsSelected = 7;
-        console.log(numCardsSelected);
-        matchCardCountToCompletion = 8;
-        ratingArray = [4, 8, 12, 16];
-      }
+
+      // let gameSizeInfo = gameSizeInfo.dataset.numCards;
+
+      if (numCards === 'four') {
+          console.log("four");
+          numCardsSelected = 1;
+          console.log(numCardsSelected);
+          matchCardCountToCompletion = 2;
+          ratingArray = [1, 2, 3, 4];
+        } else if (numCards === 'eight') {
+          console.log("eight");
+          numCardsSelected = 3;
+          console.log(numCardsSelected);
+          matchCardCountToCompletion = 4;
+          ratingArray = [2, 4, 6, 8];
+        } else if (numCards === 'sixteen') {
+          console.log("sixteen");
+          numCardsSelected = 7;
+          console.log(numCardsSelected);
+          matchCardCountToCompletion = 8;
+          ratingArray = [4, 8, 12, 16];
+        }
+
+  
+
+      // if (btn4Clicked) {
+      //   console.log("four");
+      //   numCardsSelected = 1;
+      //   console.log(numCardsSelected);
+      //   matchCardCountToCompletion = 2;
+      //   ratingArray = [1, 2, 3, 4];
+      // } else if (btn8Clicked) {
+      //   console.log("eight");
+      //   numCardsSelected = 3;
+      //   console.log(numCardsSelected);
+      //   matchCardCountToCompletion = 4;
+      //   ratingArray = [2, 4, 6, 8];
+      // } else if (btn16Clicked) {
+      //   console.log("sixteen");
+      //   numCardsSelected = 7;
+      //   console.log(numCardsSelected);
+      //   matchCardCountToCompletion = 8;
+      //   ratingArray = [4, 8, 12, 16];
+      // }
       console.log("post-infunction-gpvariables");
     }
   // });
@@ -157,6 +182,7 @@ function startGame() {
     const card = document.createElement('div');
     card.classList.add('card');
     card.dataset.name = gameGrid[i].name;
+    card.tabIndex = 1;
 
     // Create front of card
 
@@ -183,54 +209,78 @@ function startGame() {
 
 // Gameplay wrapped up in function
 function gameplay() {
-  let grid = document.querySelector('.grid');
-  // Allow to select certain cards
-  grid.addEventListener('click', function(event) {
-    // Grab the clicked item
-    let clickedCard = event.target;
 
-    // Avoid clicking on certain items
-    if (clickedCard.nodeName === 'SECTION' || clickedCard.parentNode.classList.contains('selected') || clickedCard.parentNode.classList.contains('matched')) {
-      return;
-    }
+  let cardClickBehavior = function(event) {
+        // Grab the clicked item
+        let clickedCard = event.target;
+        console.log(clickedCard);
 
-    // Only allow two selected cards
-    if (selectedCount < 2) {
-      selectedCount++;
-      // Track which card was selected for first guess
-      if (selectedCount === 1) {
-        firstGuess = clickedCard.parentNode.dataset.name;
-        clickedCard.parentNode.classList.add('selected');
-        // Track which card was selected for second guess
-      } else {
-        secondGuess = clickedCard.parentNode.dataset.name;
-        clickedCard.parentNode.classList.add('selected');
-      }
-      // Run the match function if both guesses are not empty and the guesses' dataset names match
-      if (firstGuess !== '' && secondGuess !== '') {
-        if (firstGuess === secondGuess) {
-          setTimeout(moveCounter, delay);
-          setTimeout(displayGameRating, delay);
-          setTimeout(selectedCardsMatch, delay);
-          setTimeout(resetGuesses, delay);
-        } else {
-          setTimeout(moveCounter, delay);
-          setTimeout(displayGameRating, delay);
-          setTimeout(resetGuesses, delay);
+        // Avoid clicking on certain items
+        if (clickedCard.nodeName === 'SECTION' || clickedCard.parentNode.classList.contains('selected') || clickedCard.parentNode.classList.contains('matched')) {
+          return;
         }
-      }
-      //Did not work with previousSelection assigned with let
-      // previousSelection = clickedCard;
-      // console.log(previousSelection);
-      // console.log(clickedCard);
-    }
+    
+        // Only allow two selected cards
+        if (selectedCount < 2) {
+          selectedCount++;
+          // Track which card was selected for first guess
+          if (selectedCount === 1) {
+            firstGuess = clickedCard.parentNode.dataset.name;
+            clickedCard.parentNode.classList.add('selected');
+            // Track which card was selected for second guess
+          } else {
+            secondGuess = clickedCard.parentNode.dataset.name;
+            clickedCard.parentNode.classList.add('selected');
+          }
+          // Run the match function if both guesses are not empty and the guesses' dataset names match
+          if (firstGuess !== '' && secondGuess !== '') {
+            if (firstGuess === secondGuess) {
+              setTimeout(moveCounter, delay);
+              setTimeout(displayGameRating, delay);
+              setTimeout(selectedCardsMatch, delay);
+              setTimeout(resetGuesses, delay);
+            } else {
+              setTimeout(moveCounter, delay);
+              setTimeout(displayGameRating, delay);
+              setTimeout(resetGuesses, delay);
+            }
+          }
+          //Did not work with previousSelection assigned with let
+          // previousSelection = clickedCard;
+          // console.log(previousSelection);
+          // console.log(clickedCard);
+        }
+    
+        // let allMatchedCards = document.querySelectorAll('.grid .matched');
+        // if (allMatchedCards.length === 2) {
+        //   console.log('cats matched!');
+        // }
+  } 
 
-    // let allMatchedCards = document.querySelectorAll('.grid .matched');
-    // if (allMatchedCards.length === 2) {
-    //   console.log('cats matched!');
-    // }
+  let grid = document.querySelector('.grid');
+  let gridCard = document.querySelectorAll('.front');
+
+  // Allow to select certain cards by click
+  grid.addEventListener('click', cardClickBehavior);
+  
+  // Allow to select certain cards by pressing enter when focused
+  grid.addEventListener('keyup', function(e) {
+    if (e.keyCode === 13) {
+      let cardPressed = e.path[0].firstChild;
+      console.log(cardPressed);
+      console.log(e);
+      console.log(event);
+      cardClickBehavior(cardPressed);
+    }
   });
-}
+
+
+  // for (let i = 0; i < gridCard.length; i++) {
+  //   gridCard[i].addEventListener('keyup', function(e) {
+  //     cardClickBehavior(event);
+  //   })
+  // }
+};
 
 // Function to reset guess cards & count
 function resetGuesses() {
@@ -443,9 +493,9 @@ function gameCompleted() {
 //Grab elements
 let startGameModal = document.getElementById('startGameModal');
 // let closeBtn = document.getElementsByClassName('closeBtn')[0];
-let startGameBtn4 = document.getElementById('startGame4');
-let startGameBtn8 = document.getElementById('startGame8');
-let startGameBtn16 = document.getElementById('startGame16');
+// let startGameBtn4 = document.getElementById('startGame4');
+// let startGameBtn8 = document.getElementById('startGame8');
+// let startGameBtn16 = document.getElementById('startGame16');
 
 let completedGameModal = document.getElementById('completedGameModal');
 let playAgainBtn = document.getElementById('playAgain');
@@ -458,39 +508,53 @@ let catGifsBtn = document.getElementById('catGifs');
 //Listen for closing click outside of dialog window
 // window.addEventListener('click', clickOutside);
 
-//Listen for click on the Go! button
-let btn4Clicked = false;
-startGameBtn4.addEventListener('click', function() {
-  btn4Clicked = true;
-  console.log("pre-gpvariables");
-  setGameplayVariables();
-  console.log("post-gpvariables");
-  console.log("pre-startgame");
+//Listen for click on the Go! buttons
+
+let gameSizeBtns = document.querySelector('.gameSizeBtns');
+
+gameSizeBtns.addEventListener('click', function(event) {
+  console.log(event);
+  console.log(event.path[0].dataset.numCards);
+  if (event.target.tagName === "BUTTON") {
+  let numCards = event.path[0].dataset.numCards;
+  setGameplayVariables(numCards);
   startGame();
-  console.log("post-startgame");
+  }
+  event.stopPropagation();
 });
 
-let btn8Clicked = false;
-startGameBtn8.addEventListener('click', function() {
-  btn8Clicked = true;
-  console.log("pre-gpvariables");
-  setGameplayVariables();
-  console.log("post-gpvariables");
-  console.log("pre-startgame");
-  startGame();
-  console.log("post-startgame");
-});
+// let btn4Clicked = false;
+// startGameBtn4.addEventListener('click', function() {
+//   btn4Clicked = true;
+//   console.log("pre-gpvariables");
+//   setGameplayVariables();
+//   console.log("post-gpvariables");
+//   console.log("pre-startgame");
+//   startGame();
+//   console.log("post-startgame");
+// });
 
-let btn16Clicked = false;
-startGameBtn16.addEventListener('click', function() {
-  btn16Clicked = true;
-  console.log("pre-gpvariables");
-  setGameplayVariables();
-  console.log("post-gpvariables");
-  console.log("pre-startgame");
-  startGame();
-  console.log("post-startgame");
-});
+// let btn8Clicked = false;
+// startGameBtn8.addEventListener('click', function() {
+//   btn8Clicked = true;
+//   console.log("pre-gpvariables");
+//   setGameplayVariables();
+//   console.log("post-gpvariables");
+//   console.log("pre-startgame");
+//   startGame();
+//   console.log("post-startgame");
+// });
+
+// let btn16Clicked = false;
+// startGameBtn16.addEventListener('click', function() {
+//   btn16Clicked = true;
+//   console.log("pre-gpvariables");
+//   setGameplayVariables();
+//   console.log("post-gpvariables");
+//   console.log("pre-startgame");
+//   startGame();
+//   console.log("post-startgame");
+// });
 
 
 
@@ -499,9 +563,9 @@ playAgainBtn.addEventListener('click', function() {
   // matchCardCountToCompletion = undefined;
   // numCardsSelected = undefined;
   // ratingArray = undefined;
-  btn4Clicked = false;
-  btn8Clicked = false;
-  btn16Clicked = false;
+  // btn4Clicked = false;
+  // btn8Clicked = false;
+  // btn16Clicked = false;
   openStartModal();
 });
 

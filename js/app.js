@@ -210,7 +210,7 @@ function startGame() {
 // Gameplay wrapped up in function
 function gameplay() {
 
-  let cardClickBehavior = function(event) {
+  function cardClickBehavior(event) {
         // Grab the clicked item
         let clickedCard = event.target;
         console.log(clickedCard);
@@ -265,15 +265,19 @@ function gameplay() {
   
   // Allow to select certain cards by pressing enter when focused
 
-  // grid.addEventListener('keyup', function(e) {
-  //   if (e.keyCode === 13) {
-  //     let cardPressed = e.path[0].firstChild;
-  //     console.log(cardPressed);
-  //     console.log(e);
-  //     console.log(event);
-  //     cardClickBehavior(cardPressed);
-  //   }
-  // });
+  grid.addEventListener('keyup', function(e) {
+    if (e.keyCode === 13) {
+      // console.log(event);
+      // let cardPressed = e.target.firstChild;
+      // console.log(cardPressed);
+      cardClickBehavior(event);
+      // let cardPressed = e.path[0].firstChild;
+      // console.log(cardPressed);
+      // console.log(e);
+      // console.log(event);
+      // cardClickBehavior(cardPressed);
+    }
+  });
 
 
   // for (let i = 0; i < gridCard.length; i++) {

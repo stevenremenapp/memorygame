@@ -208,7 +208,7 @@ h1 {
   cursor: pointer;
 } */
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 723px) {
   .card,
   .front,
   .back {

@@ -59,19 +59,19 @@ function setGameplayVariables(numCards) {
           numCardsSelected = 1;
           console.log(numCardsSelected);
           matchCardCountToCompletion = 2;
-          ratingArray = [1, 2, 3, 4];
+          ratingArray = [3, 4, 5, 6];
         } else if (numCards === 'eight') {
           console.log("eight");
           numCardsSelected = 3;
           console.log(numCardsSelected);
           matchCardCountToCompletion = 4;
-          ratingArray = [2, 4, 6, 8];
+          ratingArray = [6, 8, 10, 12];
         } else if (numCards === 'sixteen') {
           console.log("sixteen");
           numCardsSelected = 7;
           console.log(numCardsSelected);
           matchCardCountToCompletion = 8;
-          ratingArray = [4, 8, 12, 16];
+          ratingArray = [12, 15, 18, 21];
         }
 
   
@@ -258,21 +258,22 @@ function gameplay() {
   } 
 
   let grid = document.querySelector('.grid');
-  let gridCard = document.querySelectorAll('.front');
+  // let gridCard = document.querySelectorAll('.front');
 
   // Allow to select certain cards by click
   grid.addEventListener('click', cardClickBehavior);
   
   // Allow to select certain cards by pressing enter when focused
-  grid.addEventListener('keyup', function(e) {
-    if (e.keyCode === 13) {
-      let cardPressed = e.path[0].firstChild;
-      console.log(cardPressed);
-      console.log(e);
-      console.log(event);
-      cardClickBehavior(cardPressed);
-    }
-  });
+
+  // grid.addEventListener('keyup', function(e) {
+  //   if (e.keyCode === 13) {
+  //     let cardPressed = e.path[0].firstChild;
+  //     console.log(cardPressed);
+  //     console.log(e);
+  //     console.log(event);
+  //     cardClickBehavior(cardPressed);
+  //   }
+  // });
 
 
   // for (let i = 0; i < gridCard.length; i++) {
@@ -513,10 +514,11 @@ let catGifsBtn = document.getElementById('catGifs');
 let gameSizeBtns = document.querySelector('.gameSizeBtns');
 
 gameSizeBtns.addEventListener('click', function(event) {
+  // if (!event) {event = window.event};
   console.log(event);
-  console.log(event.path[0].dataset.numCards);
+  // console.log(event.path[0].dataset.numCards);
   if (event.target.tagName === "BUTTON") {
-  let numCards = event.path[0].dataset.numCards;
+  let numCards = event.target.dataset.numCards;
   setGameplayVariables(numCards);
   startGame();
   }

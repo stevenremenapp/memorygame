@@ -70,7 +70,7 @@ function randomCardSelect() {
     cards.shift();
   }
 
-  while (cards.length <= numCardsSelected) {
+  while (cards.length < numCardsSelected) {
     let cardChosen = allCards[Math.floor(Math.random() * allCards.length)];
     if (cards.includes(cardChosen) === false) {
       cards.push(cardChosen);
@@ -144,7 +144,25 @@ function startGame() {
 function gameplay() {
   function cardClickBehavior(event) {
     // Grab the clicked item
-    let clickedCard = event.target;
+    // const clickedCard = {
+    //   click: {
+
+    //   },
+    //   pressed: {
+
+    //   }
+    // }
+
+    let clickedCard;
+
+    console.log(event.type);
+    if (event.type === 'click') {
+      clickedCard = event.target;
+    } else {
+      clickedCard = event.target.children[0];
+    }
+    
+    // let pressedCard = event.target.children[0];
     console.log(clickedCard);
 
     // Avoid clicking on certain items
@@ -195,6 +213,8 @@ function gameplay() {
       // console.log(event);
       // let cardPressed = e.target.firstChild;
       // console.log(cardPressed);
+      // let pressedCard = event.target.children[0];
+      // console.log(pressedCard);
       cardClickBehavior(event);
       // let cardPressed = e.path[0].firstChild;
       // console.log(cardPressed);
@@ -203,12 +223,6 @@ function gameplay() {
       // cardClickBehavior(cardPressed);
     }
   });
-
-  // for (let i = 0; i < gridCard.length; i++) {
-  //   gridCard[i].addEventListener('keyup', function(e) {
-  //     cardClickBehavior(event);
-  //   })
-  // }
 }
 
 // Function to reset guess cards & count
@@ -401,7 +415,7 @@ gameSizeBtns.addEventListener('click', function(event) {
     if (!Object.keys(gameModes).includes(numberOfCards)) {
       throw new Error('Game does not support the number of cards chosen.');
     } else {
-      numCardsSelected = gameModes[numberOfCards].pairs - 1;
+      numCardsSelected = gameModes[numberOfCards].pairs;
       matchCardCountToCompletion = gameModes[numberOfCards].pairs;
       ratingArray = gameModes[numberOfCards].rating;
 

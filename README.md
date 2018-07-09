@@ -10,6 +10,7 @@ A huge thank you to Tania Rascia for getting me started with this game. [See her
 Features:
 
 * Your choice of three game sizes.
+* Keyboard accessibility on the game cards.
 * Timer and move counter.
 * Restart your game at any time.
 * Cat rating based on the success of your gameplay.

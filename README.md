@@ -1,6 +1,8 @@
 # Memory Game
 ### Cat Detective
 
+[Play the game here!](https://stevenremenapp.github.io/memorygame/)
+
 Game created for Udacity's Front-End Nanodegree.
 
 Test your memory skills with this game that challenges with three game size options. Score your highest cat rating!
